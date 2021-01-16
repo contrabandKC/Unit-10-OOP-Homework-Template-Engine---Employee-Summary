@@ -33,3 +33,169 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+let Name 
+
+
+function teamName() {
+    inquirer.prompt([
+        {
+            type:"input",
+            name: "name",
+            message: "What is the Team name?"
+        }
+    ]).then(function(data){
+    
+        Name = data.name
+        console.log(Name)
+        menu()
+    }) 
+}
+
+function manager() {
+    inquirer.prompt([
+        {
+            type:"input",
+            name: "name",
+            message: "What is name of the manager?"
+        },
+        {
+            type:"input",
+            name: "id",
+            message: "What is managers ID?"
+        },
+        {
+            type:"input",
+            name: "email",
+            message: "What is email of the manager?"
+        },
+        {
+            type:"input",
+            name: "OfficeNumber",
+            message: "What is Office number of the manager?"
+        },
+    
+    ]).then(function(data){
+    
+        let name = data.name
+        let id = data.id
+        let email = data.email
+        let officeNumber = data.OfficeNumber
+    
+        console.log(name, id, email, officeNumber)
+        menu()
+    })  
+}
+
+function addEngineer() {
+    inquirer.prompt([
+        {
+            type:"input",
+            name: "engineerName",
+            message: "What is name of the engineer?"
+        },
+        {
+            type:"input",
+            name: "engineerId",
+            message: "What is engineers ID?"
+        },
+        {
+            type:"input",
+            name: "engineerEmail",
+            message: "What is Email of the engineer?"
+        },
+        {
+            type:"input",
+            name: "engineerGitHub",
+            message: "What is Git Hub of the engineer?"
+        },
+    
+    ]).then(function(data){
+    
+        let name = data.engineerName
+        let id = data.engineerId
+        let email = data.engineerEmail
+        let gitHub = data.engineerGitHub
+    
+        console.log(name, id, email, gitHub)
+        menu()
+    })  
+}
+
+function addIntern() {
+    inquirer.prompt([
+        {
+            type:"input",
+            name: "internName",
+            message: "What is name of the intern?"
+        },
+        {
+            type:"input",
+            name: "internId",
+            message: "What is interns ID?"
+        },
+        {
+            type:"input",
+            name: "internEmail",
+            message: "What is Email of the intern?"
+        },
+        {
+            type:"input",
+            name: "internSchool",
+            message: "What is your interns school?"
+        },
+    
+    ]).then(function(data){
+    
+        let name = data.internName
+        let id = data.internId
+        let email = data.internEmail
+        let school = data.internSchool
+    
+        console.log(name, id, email, school)
+        menu()
+    })  
+}
+
+function menu() {
+
+    inquirer.prompt([
+        {
+            type:"list",
+            name: "memberChoice",
+            message: "Which team member would you like to add?",
+            choices:[
+                "Team Name",
+                "Manager",
+                "Engineer",
+                "Intern",
+                "Exit"
+            ]
+        }
+
+    ]).then(choice=>{
+        switch (choice.memberChoice) {
+            case "Team Name":
+                teamName()
+                break;
+
+            case "Manager":
+                manager()
+                break;
+
+            case "Engineer":
+                addEngineer()
+                break; 
+
+            case "Intern":
+                addIntern()
+                break;                
+                
+
+            default:
+                break;
+        }
+    })
+}
+
+menu()
