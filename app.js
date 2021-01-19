@@ -36,6 +36,8 @@ const render = require("./lib/htmlRenderer");
 
 let Name 
 
+const teamMembers = [];
+const idArray = []
 
 function teamName() {
     inquirer.prompt([
@@ -81,8 +83,13 @@ function manager() {
         let id = data.id
         let email = data.email
         let officeNumber = data.OfficeNumber
-    
-        console.log(name, id, email, officeNumber)
+        
+        const manager = new Manager(name,id,email,officeNumber)
+        teamMembers.push(manager)
+        idArray.push(id)
+
+        console.log(name, id, email, officeNumber, teamMembers)
+        
         menu()
     })  
 }
@@ -117,7 +124,11 @@ function addEngineer() {
         let email = data.engineerEmail
         let gitHub = data.engineerGitHub
     
-        console.log(name, id, email, gitHub)
+        const engineer = new Engineer(name,id,email,gitHub)
+
+        teamMembers.push(engineer)
+
+        console.log(name, id, email, gitHub), teamMembers
         menu()
     })  
 }
@@ -151,8 +162,12 @@ function addIntern() {
         let id = data.internId
         let email = data.internEmail
         let school = data.internSchool
+
+        const intern = new Intern(name, id, email, school)
+
+        teamMembers.push(intern)
     
-        console.log(name, id, email, school)
+        console.log(name, id, email, school,teamMembers)
         menu()
     })  
 }
@@ -193,9 +208,18 @@ function menu() {
                 
 
             default:
+                buildTeam()
                 break;
         }
     })
+}
+
+
+function buildTeam(){
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR)
+    }
+    fs.writeFileSync(outputPath, render(teamMembers), "utf-8")
 }
 
 menu()
